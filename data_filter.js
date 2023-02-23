@@ -1,0 +1,5 @@
+/** @format */
+
+export const getDataByMonth = (data, month) => {
+  return data.filter((d) => d.month.toLowerCase() === month.toLowerCase());
+};
