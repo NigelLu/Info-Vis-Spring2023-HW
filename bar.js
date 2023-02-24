@@ -17,6 +17,7 @@ export const drawBars = (
   xScale.domain(new Set(data.map((item) => item.station).values()));
 
   const barLayer = barChartLayer.append("g");
+  const scatterCover = d3.select("#scatterCover");
   barLayer
     .selectAll("rect")
     .data(data)
@@ -30,13 +31,15 @@ export const drawBars = (
     .attr("id", (item) => item.station.replace(/[^a-zA-Z]/g, ""))
     .attr("width", (barChartWidth - margin.right - 40) / data.length)
     .attr("height", (item) => barChartHeight - yScale(item.start) - margin.bottom)
-    .on("mouseover", function (evt, item) {
+    .on("mouseenter", function (evt, item) {
       const stationId = d3.select(this).node().id;
+      scatterCover.style("opacity", 0.75).raise();
       d3.selectAll(`#${stationId}`).raise();
       d3.selectAll(`#${stationId}`).transition().duration(200).style("fill", "red").attr("r", "10");
     })
-    .on("mouseout", function () {
+    .on("mouseleave", function () {
       const stationId = d3.select(this).node().id;
+      scatterCover.style("opacity", 0).lower();
       d3.selectAll(`#${stationId}`)
         .transition()
         .duration(200)

@@ -67,7 +67,7 @@ const plotScatter = function ({
         .text("Trip duration end in"),
     );
 
-  drawPoints(scatterPlotLayer, data, xScale_spl, yScale_spl, div, width_spl, height_spl); // ~ done
+  drawPoints(scatterPlotLayer, data, xScale_spl, yScale_spl, div, width_spl, height_spl, margin); // ~ done
 };
 
 const plotBar = function ({
