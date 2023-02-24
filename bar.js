@@ -10,6 +10,12 @@ export const drawBars = (
   div,
   margin,
 ) => {
+  // * sort the data
+  data.sort((a, b) => b.start - a.start);
+
+  // * update the xScale domain
+  xScale.domain(new Set(data.map((item) => item.station).values()));
+
   const barLayer = barChartLayer.append("g");
   barLayer
     .selectAll("rect")
