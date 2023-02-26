@@ -26,12 +26,15 @@ export const drawBars = (
     .attr("height", (item) => barChartHeight - yScale(item.start) - margin.bottom)
     .on("mouseover", function (evt, item) {
       const stationId = d3.select(this).node().id;
-      const correspondingElements = d3.selectAll(`#${stationId}`);
-      correspondingElements.transition().duration(200).style("fill", "red").attr("r", "10");
+      d3.selectAll(`#${stationId}`).raise();
+      d3.selectAll(`#${stationId}`).transition().duration(200).style("fill", "red").attr("r", "10");
     })
     .on("mouseout", function () {
       const stationId = d3.select(this).node().id;
-      const correspondingElements = d3.selectAll(`#${stationId}`);
-      correspondingElements.transition().duration(200).style("fill", "steelblue").attr("r", "5");
+      d3.selectAll(`#${stationId}`)
+        .transition()
+        .duration(200)
+        .style("fill", "steelblue")
+        .attr("r", "5");
     });
 };

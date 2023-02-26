@@ -25,6 +25,7 @@ export const drawPoints = (
     .attr("cy", (item) => `${yScale(item.tripdurationE)}`)
     .on("mouseover", function (evt, item) {
       const stationId = d3.select(this).node().id;
+      d3.selectAll(`#${stationId}`).raise();
       d3.selectAll(`#${stationId}`).transition().duration(200).attr("r", "10").style("fill", "red");
       div
         .style("left", `${evt.x}px`)
