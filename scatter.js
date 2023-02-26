@@ -8,9 +8,7 @@ export const drawPoints = (
   div,
   scatterPlotWidth,
   scatterPlotHeight,
-  margin,
 ) => {
-  // div.style("position", "relative").style("width", "40px").style("height", "30px");
   const scatterLayer = scatterPlotLayer.append("g");
 
   scatterLayer
@@ -19,9 +17,11 @@ export const drawPoints = (
     .enter()
     .append("circle")
     .attr("r", "5")
+    .style("stroke", "black")
+    .style("fill", "steelblue")
+    .style("stroke-width", "2")
     .attr("cx", (item) => `${xScale(item.tripdurationS)}`)
     .attr("cy", (item) => `${yScale(item.tripdurationE)}`)
-    .attr("style", "fill: steelblue; stroke: black; stroke-width: 2")
     .on("mouseover", function (evt, item) {
       d3.select(this).transition().duration(200).attr("r", "10").style("fill", "red");
       div
