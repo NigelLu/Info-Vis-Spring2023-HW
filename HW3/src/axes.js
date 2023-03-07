@@ -5,9 +5,8 @@ import React from "react";
 export { XAxis, YAxis };
 
 function XAxis({ width, xScale, height, chartType, axisLabel }) {
-  const ticks = xScale.ticks();
-
   if (chartType === "scatter") {
+    const ticks = xScale.ticks();
     return (
       <g>
         <text
@@ -30,7 +29,19 @@ function XAxis({ width, xScale, height, chartType, axisLabel }) {
     );
   }
   if (chartType === "bar") {
-    return <g></g>;
+    const xLabels = xScale.domain();
+    return (
+      <g>
+        <line x1={0} x2={width} y1={height} y2={height} stroke={"black"} />
+        {xLabels.map((xLabel) => (
+          <g key={xLabel} transform={`translate(${xScale(xLabel)}, ${height})`}>
+            <text x={5} transform="rotate(75)" style={{ textAnchor: "start", fontSize: "0.4rem" }}>
+              {xLabel}
+            </text>
+          </g>
+        ))}
+      </g>
+    );
   }
 }
 
@@ -40,7 +51,7 @@ function YAxis({ height, yScale, axisLabel }) {
   return (
     <g>
       <text
-        x={-75}
+        x={-60}
         y={15}
         style={{ textAnchor: "start", fontSize: "0.5rem", fontWeight: "bold" }}
         transform='rotate(-90)'

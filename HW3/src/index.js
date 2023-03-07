@@ -76,6 +76,11 @@ function Charts() {
     offsetY: margin.right,
   };
 
+  // * barchart props
+  const barchartProps = {
+    ...scatterplotProps,
+  };
+
   return (
     <div>
       <div>
@@ -96,11 +101,11 @@ function Charts() {
             <ScatterPlot {...scatterplotProps} />
           </svg>
         </div>
-        {/* <div className='col-lg-6'>
+        <div className='col-lg-6'>
           <svg width={"100%"} viewBox={`0 0 ${SVG_WIDTH} ${SVG_HEIGHT}`}>
-            <BarChart />
+            <BarChart {...barchartProps} />
           </svg>
-        </div> */}
+        </div>
       </div>
     </div>
   );
