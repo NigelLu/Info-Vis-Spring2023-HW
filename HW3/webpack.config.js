@@ -43,7 +43,7 @@ module.exports = {
         ],
     },
     devServer:{
-        port: 9000
+        port: 3030
     },
     devtool: "source-map"
 }
