@@ -1,11 +1,16 @@
 /** @format */
 
-import React from "react";
+import React, { useState } from "react";
+
+const RED = "red";
+const STEELBLUE = "steelblue";
 
 export function Bars({ data, xScale, yScale, height, width }) {
+  const [selectedStation, setSelectedStation] = useState(null);
+
   //complete the getColor when you are asked to
-  const getColor = () => {
-    return;
+  const getColor = (selectedStation, station) => {
+    return selectedStation === station ? RED : STEELBLUE;
   };
   const barWidth = width / data.length;
 
@@ -18,7 +23,9 @@ export function Bars({ data, xScale, yScale, height, width }) {
           x={xScale(d.station)}
           key={`${d.station}-${d.month}`}
           height={height - yScale(d.start)}
-          style={{ fill: "steelblue", stroke: "black", strokeWidth: 2 }}
+          onMouseOut={() => setSelectedStation(null)}
+          onMouseEnter={() => setSelectedStation(d.station)}
+          style={{ fill: getColor(selectedStation, d.station), stroke: "black", strokeWidth: 2 }}
         ></rect>
       ))}
     </g>
