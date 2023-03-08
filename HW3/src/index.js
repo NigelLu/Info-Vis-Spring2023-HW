@@ -1,6 +1,6 @@
 /** @format */
 
-import React from "react";
+import React, { useState } from "react";
 import ReactDOM from "react-dom";
 import { csv } from "d3";
 import { ScatterPlot } from "./scatterplot";
@@ -30,6 +30,8 @@ function useData(csvPath) {
 // the Chart component
 function Charts() {
   const [month, setMonth] = React.useState("4");
+  // * add a new state to monitor selected station
+  const [selectedStation, setSelectedStation] = useState(null);
   const SVG_WIDTH = 500;
   const SVG_HEIGHT = 400;
   const margin = { left: 50, right: 30, top: 30, bottom: 80 }; //you can modify the values if needed.
@@ -72,6 +74,8 @@ function Charts() {
     data,
     width,
     height,
+    selectedStation,
+    setSelectedStation,
     offsetX: margin.left,
     offsetY: margin.right,
   };

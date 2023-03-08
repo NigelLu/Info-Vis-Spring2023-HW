@@ -6,7 +6,15 @@ import { Scales } from "./scale";
 import { Points } from "./points";
 import { XAxis, YAxis } from "./axes";
 
-export function ScatterPlot({ data, offsetX, offsetY, height, width }) {
+export function ScatterPlot({
+  data,
+  offsetX,
+  offsetY,
+  height,
+  width,
+  selectedStation,
+  setSelectedStation,
+}) {
   // * scales for x & y axis
   const xScale = Scales.linear(
     0,
@@ -38,6 +46,8 @@ export function ScatterPlot({ data, offsetX, offsetY, height, width }) {
     data,
     xScale,
     yScale,
+    selectedStation,
+    setSelectedStation,
   };
 
   return (
