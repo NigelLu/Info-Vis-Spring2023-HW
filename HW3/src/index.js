@@ -1,11 +1,11 @@
 /** @format */
 
-import React, { useState } from "react";
-import ReactDOM from "react-dom";
 import { csv } from "d3";
-import { ScatterPlot } from "./scatterplot";
-import { BarChart } from "./barchart";
+import ReactDOM from "react-dom";
 import { Tooltip } from "./tooltip";
+import { BarChart } from "./barchart";
+import React, { useState } from "react";
+import { ScatterPlot } from "./scatterplot";
 import "bootstrap/dist/css/bootstrap.min.css"; //import bootstrap
 
 //url
@@ -65,9 +65,6 @@ function Charts() {
   const data = dataAll.filter((d) => {
     return d.month === MONTH[month];
   });
-
-  // TODO: for reference purposes, delete when finished
-  console.log(data.slice(0, 5));
 
   // * scatterplot props
   const scatterplotProps = {

@@ -1,13 +1,11 @@
 /** @format */
 
-import React, { useState } from "react";
+import React from "react";
 
 const RED = "red";
 const STEELBLUE = "steelblue";
 
-export function Bars({ data, xScale, yScale, height, width }) {
-  const [selectedStation, setSelectedStation] = useState(null);
-
+export function Bars({ data, xScale, yScale, height, width, selectedStation, setSelectedStation }) {
   //complete the getColor when you are asked to
   const getColor = (selectedStation, station) => {
     return selectedStation === station ? RED : STEELBLUE;

@@ -1,7 +1,7 @@
 /** @format */
 
-import React from "react";
 import { max } from "d3";
+import React from "react";
 import { Scales } from "./scale";
 import { Points } from "./points";
 import { XAxis, YAxis } from "./axes";

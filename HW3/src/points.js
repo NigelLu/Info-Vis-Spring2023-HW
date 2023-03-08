@@ -1,12 +1,11 @@
 /** @format */
 
-import React, { useState } from "react";
+import React from "react";
 
 const RED = "red";
 const STEELBLUE = "steelblue";
 
-export function Points({ data, xScale, yScale }) {
-  const [selectedStation, setSelectedStation] = useState(null);
+export function Points({ data, xScale, yScale, selectedStation, setSelectedStation }) {
   //complete the getColor and getRadius when you are asked to
   const getColor = (selectedStation, station) => {
     return selectedStation === station ? RED : STEELBLUE;

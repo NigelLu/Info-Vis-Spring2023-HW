@@ -6,7 +6,15 @@ import { XAxis, YAxis } from "./axes";
 import { Scales } from "./scale";
 import { Bars } from "./bars";
 
-export function BarChart({ data, offsetX, offsetY, height, width }) {
+export function BarChart({
+  data,
+  width,
+  height,
+  offsetX,
+  offsetY,
+  selectedStation,
+  setSelectedStation,
+}) {
   // * supply the stations Array as sorted to keep the xAxis unchanged between month shifts
   const xScale = Scales.band(
     Array.from(new Set(data.map((item) => item.station))).sort(),
@@ -39,6 +47,8 @@ export function BarChart({ data, offsetX, offsetY, height, width }) {
     height,
     xScale,
     yScale,
+    selectedStation,
+    setSelectedStation,
   };
 
   return (
