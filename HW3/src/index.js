@@ -30,6 +30,10 @@ function useData(csvPath) {
 // the Chart component
 function Charts() {
   const [month, setMonth] = React.useState("4");
+  // * states for tooltip
+  const [top, setTop] = useState(null);
+  const [left, setLeft] = useState(null);
+  const [tooltipData, setTooltipData] = useState(null);
   // * add a new state to monitor selected station
   const [selectedStation, setSelectedStation] = useState(null);
   const SVG_WIDTH = 500;
@@ -71,6 +75,9 @@ function Charts() {
     data,
     width,
     height,
+    setTop,
+    setLeft,
+    setTooltipData,
     selectedStation,
     setSelectedStation,
     offsetX: margin.left,
@@ -80,6 +87,13 @@ function Charts() {
   // * barchart props
   const barchartProps = {
     ...scatterplotProps,
+  };
+
+  // * tooltip props
+  const tooltipProps = {
+    top,
+    left,
+    d: tooltipData,
   };
 
   return (
@@ -96,6 +110,7 @@ function Charts() {
         />
         <input key='monthText' type='text' value={MONTH[month]} readOnly />
       </div>
+      <Tooltip {...tooltipProps} />
       <div className='row'>
         <div className='col-lg-6'>
           <svg width={"100%"} viewBox={`0 0 ${SVG_WIDTH} ${SVG_HEIGHT}`}>

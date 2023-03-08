@@ -8,10 +8,13 @@ import { XAxis, YAxis } from "./axes";
 
 export function ScatterPlot({
   data,
+  width,
+  height,
+  setTop,
+  setLeft,
   offsetX,
   offsetY,
-  height,
-  width,
+  setTooltipData,
   selectedStation,
   setSelectedStation,
 }) {
@@ -46,6 +49,9 @@ export function ScatterPlot({
     data,
     xScale,
     yScale,
+    setTop,
+    setLeft,
+    setTooltipData,
     selectedStation,
     setSelectedStation,
   };

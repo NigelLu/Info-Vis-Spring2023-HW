@@ -5,7 +5,16 @@ import React from "react";
 const RED = "red";
 const STEELBLUE = "steelblue";
 
-export function Points({ data, xScale, yScale, selectedStation, setSelectedStation }) {
+export function Points({
+  data,
+  xScale,
+  yScale,
+  setTop,
+  setLeft,
+  setTooltipData,
+  selectedStation,
+  setSelectedStation,
+}) {
   //complete the getColor and getRadius when you are asked to
   const getColor = (selectedStation, station) => {
     return selectedStation === station ? RED : STEELBLUE;
@@ -26,8 +35,18 @@ export function Points({ data, xScale, yScale, selectedStation, setSelectedStati
             key={`${d.station}-${d.month}`}
             r={getRadius(selectedStation, d.station)}
             fill={getColor(selectedStation, d.station)}
-            onMouseOut={() => setSelectedStation(null)}
-            onMouseEnter={() => setSelectedStation(d.station)}
+            onMouseEnter={(evt) => {
+              setTooltipData(d);
+              setTop(evt.screenY);
+              setLeft(evt.screenX);
+              setSelectedStation(d.station);
+            }}
+            onMouseOut={() => {
+              setTop(null);
+              setLeft(null);
+              setTooltipData(null);
+              setSelectedStation(null);
+            }}
           />
         ))}
       {selectedStation && (
@@ -47,8 +66,18 @@ export function Points({ data, xScale, yScale, selectedStation, setSelectedStati
             key={`${d.station}-${d.month}`}
             r={getRadius(selectedStation, d.station)}
             fill={getColor(selectedStation, d.station)}
-            onMouseOut={() => setSelectedStation(null)}
-            onMouseEnter={() => setSelectedStation(d.station)}
+            onMouseEnter={(evt) => {
+              setTooltipData(d);
+              setTop(evt.screenY);
+              setLeft(evt.screenX);
+              setSelectedStation(d.station);
+            }}
+            onMouseOut={() => {
+              setTop(null);
+              setLeft(null);
+              setTooltipData(null);
+              setSelectedStation(null);
+            }}
           />
         ))}
     </g>
