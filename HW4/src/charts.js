@@ -47,7 +47,7 @@ function SymmetricBarChart({
           {"Num. of ridders start from a station"}
         </text>
         {/* start your code here */}
-        {/* xAxisStart */}
+        {/* xAxis */}
         <line x1={0} x2={width} y1={height / 2} y2={height / 2} stroke={"black"} />
         {/* yAxisStart */}
         <line y2={height / 2} stroke={"black"} />
@@ -138,6 +138,56 @@ function SymmetricAreaChart({ data, width, height, offsetX, offsetY }) {
     "Dec",
   ];
 
+  // * init the scales for xAxis and yAxis (two scales for yAxis)
+  const xScale = scaleBand().domain(MONTH).range([0, width]);
+  const maximumY = Math.max(
+    max(data, (d) => d.start),
+    max(data, (d) => d.end),
+  );
+  const numTicksYAxis = 3;
+  const yScaleStart = scaleLinear()
+    .domain([0, maximumY])
+    .range([height / 2, 0])
+    .nice();
+  const yScaleEnd = scaleLinear()
+    .domain([0, maximumY])
+    .range([0, height / 2])
+    .nice();
+
+  // * states for upperArea and lowerArea paths
+  const [upperAreaPath, setUpperAreaPath] = React.useState(
+    area()
+      .x((d) => xScale(d.month))
+      .y0(height / 2)
+      .y1((d) => yScaleStart(d.start))
+      .curve(curveBasis)(data),
+  );
+  const [lowerAreaPath, setLowerAreaPath] = React.useState(
+    area()
+      .x((d) => xScale(d.month))
+      .y0(0)
+      .y1((d) => yScaleEnd(d.end))
+      .curve(curveBasis)(data),
+  );
+
+  // * useEffect to update area paths
+  React.useEffect(() => {
+    setUpperAreaPath(
+      area()
+        .x((d) => xScale(d.month))
+        .y0(height / 2)
+        .y1((d) => yScaleStart(d.start))
+        .curve(curveBasis)(data),
+    );
+    setLowerAreaPath(
+      area()
+        .x((d) => xScale(d.month))
+        .y0(0)
+        .y1((d) => yScaleEnd(d.end))
+        .curve(curveBasis)(data),
+    );
+  }, [data]);
+
   return (
     <g transform={`translate(${offsetX}, ${offsetY})`}>
       {/* the text needed is given as the following */}
@@ -162,6 +212,45 @@ function SymmetricAreaChart({ data, width, height, offsetX, offsetY }) {
         </text>
       </g>
       {/* start your code here */}
+      {/* Ridders start from a station */}
+      <g>
+        {/* xAxis */}
+        <line x1={0} x2={width} y1={height / 2} y2={height / 2} stroke={"black"} />
+        {/* yAxisStart */}
+        <line y2={height / 2} stroke={"black"} />
+        {yScaleStart.ticks(numTicksYAxis).map((tickVal) => (
+          <g key={tickVal} transform={`translate(-10, ${yScaleStart(tickVal)})`}>
+            <line x2={10} stroke={"black"} />
+            <text style={{ textAnchor: "end", fontSize: "0.5rem" }}>{tickVal}</text>
+          </g>
+        ))}
+        {/* upperArea */}
+        <path d={upperAreaPath} fill={"lightgreen"} stroke={"black"} />
+      </g>
+
+      {/* Ridders end into a station */}
+      <g transform={`translate(${0}, ${height / 2})`}>
+        {/* yAxisEnd */}
+        <line y2={height / 2} stroke={"black"} />
+        {yScaleEnd.ticks(numTicksYAxis).map((tickVal) => (
+          <g key={tickVal} transform={`translate(-10, ${yScaleEnd(tickVal)})`}>
+            <line x2={10} stroke={"black"} />
+            <text style={{ textAnchor: "end", fontSize: "0.5rem" }}>{tickVal}</text>
+          </g>
+        ))}
+        {/* lowerArea */}
+        <path d={lowerAreaPath} fill={"pink"} stroke={"black"} />
+      </g>
+      <g>
+        {MONTH.map((xLabel) => (
+          <g key={xLabel} transform={`translate(${xScale(xLabel)}, ${height + 20})`}>
+            <line y1={-15} y2={-20} stroke={"black"} />
+            <text style={{ textAnchor: "middle", fontSize: "0.8rem" }}>
+              {xLabel}
+            </text>
+          </g>
+        ))}
+      </g>
     </g>
   );
 }
